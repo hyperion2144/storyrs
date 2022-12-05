@@ -7,8 +7,8 @@ fn build_flutter() -> BuildResult<()> {
 
     if cfg!(target_os = "macos") {
         let options = AppBundleOptions {
-            bundle_name: "AppTemplate.app".into(),
-            bundle_display_name: "App Template".into(),
+            bundle_name: "Storyrs.app".into(),
+            bundle_display_name: "Storyrs".into(),
             icon_file: "icons/AppIcon.icns".into(),
             ..Default::default()
         };

@@ -7,12 +7,12 @@ nativeshell::include_flutter_plugins!();
 
 fn main() {
     exec_bundle();
-    register_observatory_listener("app_template".into());
+    register_observatory_listener("storyrs".into());
 
     env_logger::builder().format_timestamp(None).init();
 
     let context = Context::new(ContextOptions {
-        app_namespace: "AppTemplate".into(),
+        app_namespace: "Storyrs".into(),
         flutter_plugins: flutter_get_plugins(),
         ..Default::default()
     });

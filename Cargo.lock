@@ -18,16 +18,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28ae2b3dec75a406790005a200b1bd89785afc02517a00ca99ecfe093ee9e6cf"
 
 [[package]]
-name = "app_template"
-version = "0.1.0"
-dependencies = [
- "cargo-emit",
- "env_logger",
- "nativeshell",
- "nativeshell_build",
-]
-
-[[package]]
 name = "async-trait"
 version = "0.1.53"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -840,9 +830,8 @@ dependencies = [
 
 [[package]]
 name = "nativeshell"
-version = "0.1.13"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7acfcff53e8d22afe5dd06e6a89f242106f05befb551b740bf3b192a09b6a69d"
+version = "0.1.14"
+source = "git+https://github.com/nativeshell/nativeshell.git#6095de6f2c8873d33a66da42589f095cd06aa972"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -889,9 +878,8 @@ dependencies = [
 
 [[package]]
 name = "nativeshell_build"
-version = "0.1.13"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1dc23acb90b77e4b82910aa5b7058279697d396295be45d04679fb138b18e915"
+version = "0.1.15"
+source = "git+https://github.com/nativeshell/nativeshell.git#6095de6f2c8873d33a66da42589f095cd06aa972"
 dependencies = [
  "base64",
  "cargo-emit",
@@ -1182,6 +1170,16 @@ name = "smallvec"
 version = "1.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fe0f37c9e8f3c5a4a66ad655a93c74daac4ad00c441533bf5c6e7990bb42604e"
+
+[[package]]
+name = "storyrs"
+version = "0.1.0"
+dependencies = [
+ "cargo-emit",
+ "env_logger",
+ "nativeshell",
+ "nativeshell_build",
+]
 
 [[package]]
 name = "strum"

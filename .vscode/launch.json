@@ -5,18 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flutter: Attach to Process",
+            "type": "lldb",
+            "request": "launch",
+            "name": "Cargo launch",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=storyrs",
+                    "--package=storyrs"
+                ]
+            },
+            "env": {
+                "RUST_BACKTRACE": "1",
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Dart: Attach to Process",
             "type": "dart",
             "request": "attach",
-            "osx": {
-                "serviceInfoFile": "${env:TMPDIR}vmservice.app_template",
-            },
-            "windows": {
-                "serviceInfoFile": "${env:TEMP}/vmservice.app_template"
-            },
-            "linux": {
-                "serviceInfoFile": "${env:XDG_RUNTIME_DIR}/vmservice.app_template"
-            }
+            "vmServiceInfoFile": "${env:TMPDIR}vmservice.storyrs"
         },
     ]
 }

@@ -1,5 +1,5 @@
 [package]
-name = "app_template"
+name = "storyrs"
 version = "0.1.0"
 authors = ["Matej Knopp <matej.knopp@gmail.com>"]
 edition = "2018"
@@ -8,8 +8,8 @@ edition = "2018"
 
 [build-dependencies]
 cargo-emit = "0.2.1"
-nativeshell_build = { version = "0.1.13" }
+nativeshell_build = { git = "https://github.com/nativeshell/nativeshell.git" }
 
 [dependencies]
-nativeshell = { version = "0.1.13" }
+nativeshell = { git = "https://github.com/nativeshell/nativeshell.git" }
 env_logger = "0.9.0"
