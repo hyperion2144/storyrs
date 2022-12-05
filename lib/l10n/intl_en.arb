@@ -1,14 +1,15 @@
 {
-    "storyrs": "Storyrs",
-    "welcomeTitle": "Welcome to Storyrs",
-    "version": "Version",
-    "createNewProject": "Create a new Storyrs project",
-    "createNewProjectSubTitle": "Start a new project from a template.",
-    "openGuide": "Open the Getting Started guide",
-    "learnFeatures": "Learn about Storyrs features.",
-    "visitWebsite": "Visit the Storyrs website",
-    "sampleFile": "Sample files, video tutorials, and more...",
-    "showLaunchesWindow": "Show this window when Storyrs launches",
-    "lastUpdatedAt": "last updated at",
-    "openAnotherProject": "Open Another Project..."
+  "storyrs": "Storyrs",
+  "welcomeTitle": "Welcome to Storyrs",
+  "version": "Version",
+  "createNewProject": "Create a new Storyrs project",
+  "createNewProjectSubTitle": "Start a new project from a template.",
+  "openGuide": "Open the Getting Started guide",
+  "learnFeatures": "Learn about Storyrs features.",
+  "visitWebsite": "Visit the Storyrs website",
+  "sampleFile": "Sample files, video tutorials, and more...",
+  "showLaunchesWindow": "Show this window when Storyrs launches",
+  "lastUpdatedAt": "last updated at",
+  "openAnotherProject": "Open Another Project...",
+  "openFileConfirmButtonText": "Open"
 }

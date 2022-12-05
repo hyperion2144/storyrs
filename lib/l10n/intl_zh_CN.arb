@@ -1,14 +1,15 @@
 {
-    "storyrs": "故事者",
-    "welcomeTitle": "欢迎使用故事者",
-    "version": "版本号",
-    "createNewProject": "创建新的故事者项目",
-    "createNewProjectSubTitle": "从模板启动新项目.",
-    "openGuide": "打开入门指南",
-    "learnFeatures": "了解故事者功能.",
-    "visitWebsite": "访问故事者网站",
-    "sampleFile": "示例文件、视频教程等...",
-    "showLaunchesWindow": "在启动时显示此窗口",
-    "lastUpdatedAt": "最后更新于",
-    "openAnotherProject": "打开其他项目..."
+  "storyrs": "故事者",
+  "welcomeTitle": "欢迎使用故事者",
+  "version": "版本号",
+  "createNewProject": "创建新的故事者项目",
+  "createNewProjectSubTitle": "从模板启动新项目.",
+  "openGuide": "打开入门指南",
+  "learnFeatures": "了解故事者功能.",
+  "visitWebsite": "访问故事者网站",
+  "sampleFile": "示例文件、视频教程等...",
+  "showLaunchesWindow": "在启动时显示此窗口",
+  "lastUpdatedAt": "最后更新于",
+  "openAnotherProject": "打开其他项目...",
+  "openFileConfirmButtonText": "打开"
 }

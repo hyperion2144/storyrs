@@ -169,6 +169,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Open`
+  String get openFileConfirmButtonText {
+    return Intl.message(
+      'Open',
+      name: 'openFileConfirmButtonText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -155,9 +155,9 @@ dependencies = [
 
 [[package]]
 name = "cocoa"
-version = "0.24.0"
+version = "0.24.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6f63902e9223530efb4e26ccd0cf55ec30d592d3b42e21a28defc42a9586e832"
+checksum = "f425db7937052c684daec3bd6375c8abe2d146dca4b8b143d6db777c39138f3a"
 dependencies = [
  "bitflags",
  "block",
@@ -627,9 +627,9 @@ dependencies = [
 
 [[package]]
 name = "gtk"
-version = "0.14.0"
+version = "0.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "10ae864e5eab8bc8b6b8544ed259eb02dd61b25323b20e777a77aa289c05fd0c"
+checksum = "2eb51122dd3317e9327ec1e4faa151d1fa0d95664cd8fb8dcfacf4d4d29ac70c"
 dependencies = [
  "atk",
  "bitflags",
@@ -1179,6 +1179,7 @@ dependencies = [
  "env_logger",
  "nativeshell",
  "nativeshell_build",
+ "serde",
 ]
 
 [[package]]

@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:nativeshell/nativeshell.dart';
 import 'package:storyrs/generated/l10n.dart';
-import 'package:storyrs/home.dart';
+import 'package:storyrs/windows/launch_window.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -59,7 +59,7 @@ class MainWindowState extends WindowState {
 
   @override
   Widget build(BuildContext context) {
-    return const ExamplesWindow(child: HomeWindow());
+    return const ExamplesWindow(child: LaunchWindow());
   }
 
   @override

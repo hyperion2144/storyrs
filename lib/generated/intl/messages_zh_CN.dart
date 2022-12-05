@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "lastUpdatedAt": MessageLookupByLibrary.simpleMessage("最后更新于"),
         "learnFeatures": MessageLookupByLibrary.simpleMessage("了解故事者功能."),
         "openAnotherProject": MessageLookupByLibrary.simpleMessage("打开其他项目..."),
+        "openFileConfirmButtonText": MessageLookupByLibrary.simpleMessage("打开"),
         "openGuide": MessageLookupByLibrary.simpleMessage("打开入门指南"),
         "sampleFile": MessageLookupByLibrary.simpleMessage("示例文件、视频教程等..."),
         "showLaunchesWindow": MessageLookupByLibrary.simpleMessage("在启动时显示此窗口"),
