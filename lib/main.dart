@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:nativeshell/nativeshell.dart';
 import 'package:storyrs/generated/l10n.dart';
+import 'package:storyrs/windows/editor_window.dart';
 import 'package:storyrs/windows/launch_window.dart';
 
 void main() async {
@@ -11,7 +12,10 @@ void main() async {
 
 // Common scaffold code used by each window
 class ExamplesWindow extends StatelessWidget {
-  const ExamplesWindow({super.key, required this.child});
+  const ExamplesWindow({
+    super.key,
+    required this.child,
+  });
 
   final Widget child;
 
@@ -32,7 +36,9 @@ class ExamplesWindow extends StatelessWidget {
       darkTheme: MacosThemeData.dark(),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: true,
-      home: WindowLayoutProbe(child: child),
+      home: WindowLayoutProbe(
+        child: child,
+      ),
     );
   }
 }
@@ -45,33 +51,11 @@ class MyApp extends StatelessWidget {
     return WindowWidget(
       onCreateState: (initData) {
         WindowState? state;
-        state ??= MainWindowState();
+        // TODO: 从后台获取当前偏好设置，若无启动界面，则打开文件选择器。
+        state ??= EditorWindowState.fromInitData(initData);
+        state ??= LaunchWindowState();
         return state;
       },
     );
-  }
-}
-
-class MainWindowState extends WindowState {
-  @override
-  WindowSizingMode get windowSizingMode =>
-      WindowSizingMode.atLeastIntrinsicSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return const ExamplesWindow(child: LaunchWindow());
-  }
-
-  @override
-  Future<void> initializeWindow(Size contentSize) async {
-    await window.setStyle(WindowStyle(
-      frame: WindowFrame.noTitle,
-      canFullScreen: false,
-      canMinimize: false,
-      canMaximize: false,
-      canResize: false,
-    ));
-
-    return super.initializeWindow(contentSize);
   }
 }

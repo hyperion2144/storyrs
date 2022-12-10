@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "openFileConfirmButtonText": MessageLookupByLibrary.simpleMessage("打开"),
         "openGuide": MessageLookupByLibrary.simpleMessage("打开入门指南"),
         "sampleFile": MessageLookupByLibrary.simpleMessage("示例文件、视频教程等..."),
+        "searchProject": MessageLookupByLibrary.simpleMessage("搜索项目"),
         "showLaunchesWindow": MessageLookupByLibrary.simpleMessage("在启动时显示此窗口"),
         "storyrs": MessageLookupByLibrary.simpleMessage("故事者"),
         "version": MessageLookupByLibrary.simpleMessage("版本号"),

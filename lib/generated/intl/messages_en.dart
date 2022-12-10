@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Open the Getting Started guide"),
         "sampleFile": MessageLookupByLibrary.simpleMessage(
             "Sample files, video tutorials, and more..."),
+        "searchProject": MessageLookupByLibrary.simpleMessage("Search Project"),
         "showLaunchesWindow": MessageLookupByLibrary.simpleMessage(
             "Show this window when Storyrs launches"),
         "storyrs": MessageLookupByLibrary.simpleMessage("Storyrs"),

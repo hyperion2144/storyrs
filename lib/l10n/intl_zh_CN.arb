@@ -11,5 +11,6 @@
   "showLaunchesWindow": "在启动时显示此窗口",
   "lastUpdatedAt": "最后更新于",
   "openAnotherProject": "打开其他项目...",
-  "openFileConfirmButtonText": "打开"
+  "openFileConfirmButtonText": "打开",
+  "searchProject": "搜索项目"
 }

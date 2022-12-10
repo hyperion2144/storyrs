@@ -11,5 +11,6 @@
   "showLaunchesWindow": "Show this window when Storyrs launches",
   "lastUpdatedAt": "last updated at",
   "openAnotherProject": "Open Another Project...",
-  "openFileConfirmButtonText": "Open"
+  "openFileConfirmButtonText": "Open",
+  "searchProject": "Search Project"
 }
