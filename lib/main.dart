@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
     return WindowWidget(
       onCreateState: (initData) {
         WindowState? state;
-        // TODO: 从后台获取当前偏好设置，若无启动界面，则打开文件选择器。
+
         state ??= EditorWindowState.fromInitData(initData);
         state ??= LaunchWindowState();
         return state;
