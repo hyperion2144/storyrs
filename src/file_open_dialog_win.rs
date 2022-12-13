@@ -1,8 +1,8 @@
 use std::{mem::size_of, ptr::null_mut};
 
-pub use widestring::WideStr;
 use {
     nativeshell::shell::ContextRef,
+    widestring::WideStr,
     windows::Win32::{
         Foundation::{HINSTANCE, HWND, LPARAM, PWSTR},
         UI::Controls::Dialogs::{

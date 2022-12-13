@@ -395,6 +395,7 @@ class _LaunchWindowState extends State<LaunchWindow> {
     final file = await showFileOpenDialog(request);
     if (file != null) {
       await openEditorWindow(file);
+      // ignore: use_build_context_synchronously
       final window = Window.of(context);
       await window.close();
     }
@@ -437,5 +438,16 @@ class LaunchWindowState extends WindowState {
     await saveRestoreWindow(window, windowName);
 
     return super.windowCloseRequested();
+  }
+
+  static Map toInitData() => {
+        "class": "launchWindow",
+      };
+
+  static LaunchWindowState? fromInitData(dynamic initData) {
+    if (initData is Map && initData["class"] == "launchWindow") {
+      return LaunchWindowState();
+    }
+    return null;
   }
 }

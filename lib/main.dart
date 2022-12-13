@@ -23,7 +23,9 @@ class ExamplesWindow extends StatelessWidget {
   Widget build(BuildContext context) {
     return MacosApp(
       onGenerateTitle: (context) {
-        return S.of(context).storyrs;
+        return S
+            .of(context)
+            .storyrs;
       },
       localizationsDelegates: const [
         S.delegate,

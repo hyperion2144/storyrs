@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "aboutStoryrs": MessageLookupByLibrary.simpleMessage("关于 Storyrs"),
         "createNewProject": MessageLookupByLibrary.simpleMessage("创建新的故事者项目"),
         "createNewProjectSubTitle":
             MessageLookupByLibrary.simpleMessage("从模板启动新项目."),

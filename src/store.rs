@@ -10,7 +10,7 @@ use {
         backend::{SafeMode, SafeModeDatabase, SafeModeEnvironment},
         Rkv, SingleStore, StoreOptions,
     },
-    std::{fs, path::PathBuf},
+    std::{fs, path::PathBuf, rc::Rc},
 };
 
 #[derive(serde::Deserialize, Debug)]
@@ -28,29 +28,23 @@ pub struct KVRequest {
     pub value: Option<Value>,
 }
 
-pub struct KvStoreChannel {
-    context: Context,
+pub struct KVStore {
     config: KvStore,
     cache: KvStore,
     data: KvStore,
 }
 
-impl KvStoreChannel {
-    pub fn new(context: Context, app_dirs: AppDirs) -> Self {
+impl KVStore {
+    pub fn new(app_dirs: AppDirs) -> Self {
         let config = KvStore::new(app_dirs.config_dir, "config");
         let cache = KvStore::new(app_dirs.cache_dir, "cache");
         let data = KvStore::new(app_dirs.data_dir, "data");
 
         Self {
-            context,
             config,
             cache,
             data,
         }
-    }
-
-    pub fn register(self) -> MethodChannel {
-        MethodChannel::new(self.context.clone(), "kv_store_channel", self)
     }
 
     pub fn put(&self, request: KVRequest) -> Result<()> {
@@ -113,7 +107,22 @@ impl KvStoreChannel {
     }
 }
 
-impl MethodCallHandler for KvStoreChannel {
+pub struct KVStoreChannel {
+    context: Context,
+    store: Rc<KVStore>,
+}
+
+impl KVStoreChannel {
+    pub fn new(context: Context, store: Rc<KVStore>) -> Self {
+        Self { context, store }
+    }
+
+    pub fn register(self) -> MethodChannel {
+        MethodChannel::new(self.context.clone(), "kv_store_channel", self)
+    }
+}
+
+impl MethodCallHandler for KVStoreChannel {
     fn on_method_call(
         &mut self,
         call: MethodCall<Value>,
@@ -123,7 +132,7 @@ impl MethodCallHandler for KvStoreChannel {
         match call.method.as_str() {
             "get" => {
                 let request: KVRequest = from_value(&call.args).unwrap();
-                match self.get(request) {
+                match self.store.get(request) {
                     Ok(value) => {
                         reply.send_ok(value);
                     }
@@ -138,7 +147,7 @@ impl MethodCallHandler for KvStoreChannel {
             }
             "put" => {
                 let request: KVRequest = from_value(&call.args).unwrap();
-                match self.put(request) {
+                match self.store.put(request) {
                     Ok(_) => {
                         reply.send_ok(Value::Null);
                     }

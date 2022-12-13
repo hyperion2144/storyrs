@@ -1304,6 +1304,7 @@ dependencies = [
  "block",
  "cargo-emit",
  "cocoa",
+ "core-graphics",
  "env_logger",
  "gtk",
  "nativeshell",

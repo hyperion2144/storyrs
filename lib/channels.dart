@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/services.dart';
 import 'package:nativeshell/nativeshell.dart';
 
@@ -34,7 +36,7 @@ class KVStoreRequest {
   final String key;
   final dynamic value;
 
-  Map<String, dynamic> serialize() => {
+  Map serialize() => {
         "mode": mode.name,
         "key": key,
         "value": value,

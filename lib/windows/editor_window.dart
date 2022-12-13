@@ -184,11 +184,9 @@ class _EditorWindowState extends State<EditorWindow> {
             children: [
               quill.QuillToolbar.basic(controller: _controller),
               Expanded(
-                child: Container(
-                  child: quill.QuillEditor.basic(
-                    controller: _controller,
-                    readOnly: false, // true for view only mode
-                  ),
+                child: quill.QuillEditor.basic(
+                  controller: _controller,
+                  readOnly: false, // true for view only mode
                 ),
               ),
             ],
@@ -224,7 +222,7 @@ class EditorWindowState extends WindowState {
     await window.show();
   }
 
-  static dynamic toInitData(String path) => {
+  static Map toInitData(String path) => {
         "class": "editorWindow",
         "filePath": path,
       };
