@@ -3,10 +3,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:nativeshell/nativeshell.dart';
 import 'package:storyrs/generated/l10n.dart';
+import 'package:storyrs/widgets/veil.dart';
 import 'package:storyrs/windows/editor_window.dart';
 import 'package:storyrs/windows/launch_window.dart';
+import 'package:storyrs/windows/main_window.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
@@ -23,9 +27,7 @@ class ExamplesWindow extends StatelessWidget {
   Widget build(BuildContext context) {
     return MacosApp(
       onGenerateTitle: (context) {
-        return S
-            .of(context)
-            .storyrs;
+        return S.of(context).storyrs;
       },
       localizationsDelegates: const [
         S.delegate,
@@ -50,14 +52,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WindowWidget(
-      onCreateState: (initData) {
-        WindowState? state;
+    return Veil(
+      child: WindowWidget(
+        onCreateState: (initData) {
+          WindowState? state;
 
-        state ??= EditorWindowState.fromInitData(initData);
-        state ??= LaunchWindowState();
-        return state;
-      },
+          state ??= EditorWindowState.fromInitData(initData);
+          state ??= LaunchWindowState.fromInitData(initData);
+          state ??= MainWindowState();
+          return state;
+        },
+      ),
     );
   }
 }

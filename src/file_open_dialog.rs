@@ -1,5 +1,5 @@
 use {
-    anyhow::Error,
+    anyhow::{Error, Result},
     nativeshell::{
         codec::{value::from_value, MethodCall, MethodCallReply, Value},
         shell::{Context, MethodCallHandler, MethodChannel, WindowHandle},
@@ -34,26 +34,27 @@ impl FileOpenDialog {
         Self { context }
     }
 
-    pub fn open_file_dialog(
-        &self,
-        parent_window: Option<WindowHandle>,
-    ) -> anyhow::Result<Option<String>> {
+    pub fn open_file_dialog<F>(&self, parent_window: Option<WindowHandle>, reply: F)
+    where
+        F: FnOnce(Result<Option<String>>) + 'static,
+    {
         if let Some(context) = self.context.get() {
-            return match parent_window {
-                None => Ok(platform::open_file_dialog(None, &context)),
+            match parent_window {
+                None => platform::open_file_dialog(None, &context, |name| reply(Ok(name))),
                 Some(parent_window) => {
                     let win = context
                         .window_manager
                         .borrow()
                         .get_platform_window(parent_window);
                     match win {
-                        None => Err(Error::msg("Platform window not found")),
-                        Some(_) => Ok(platform::open_file_dialog(win, &context)),
+                        None => reply(Err(Error::msg("Platform window not found"))),
+                        Some(_) => {
+                            platform::open_file_dialog(win, &context, |name| reply(Ok(name)))
+                        }
                     }
                 }
-            };
+            }
         }
-        Ok(None)
     }
 }
 
@@ -66,8 +67,12 @@ impl FileOpenDialogChannel {
         Self { file_open_dialog }
     }
 
-    pub fn register(self, context: Context) -> MethodChannel {
-        MethodChannel::new(context, "file_open_dialog_channel", self)
+    pub fn register(self) -> MethodChannel {
+        MethodChannel::new(
+            self.file_open_dialog.context.clone(),
+            "file_open_dialog_channel",
+            self,
+        )
     }
 }
 
@@ -81,20 +86,18 @@ impl MethodCallHandler for FileOpenDialogChannel {
         match call.method.as_str() {
             "showFileOpenDialog" => {
                 let request: FileOpenRequest = from_value(&call.args).unwrap();
-                match self
-                    .file_open_dialog
-                    .open_file_dialog(Some(request.parent_window))
-                {
-                    Ok(name) => match name {
-                        None => reply.send_ok(Value::Null),
-                        Some(name) => reply.send_ok(Value::String(name)),
-                    },
-                    Err(err) => reply.send_error(
-                        "no_window",
-                        Some(format!("{}", err).as_str()),
-                        Value::Null,
-                    ),
-                }
+                self.file_open_dialog
+                    .open_file_dialog(Some(request.parent_window), |result| match result {
+                        Ok(name) => match name {
+                            None => reply.send_ok(Value::Null),
+                            Some(name) => reply.send_ok(Value::String(name)),
+                        },
+                        Err(err) => reply.send_error(
+                            "no_window",
+                            Some(format!("{}", err).as_str()),
+                            Value::Null,
+                        ),
+                    });
             }
             _ => {
                 reply.send_error("invalid_method", Some("Invalid method"), Value::Null);

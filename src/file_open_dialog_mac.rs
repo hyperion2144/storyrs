@@ -11,6 +11,7 @@ use {
         rc::{autoreleasepool, StrongPtr},
     },
     platform_dirs::UserDirs,
+    std::cell::RefCell,
 };
 
 fn from_nsstring(ns_string: id) -> String {
@@ -24,7 +25,10 @@ fn from_nsstring(ns_string: id) -> String {
     }
 }
 
-pub(super) fn open_file_dialog(win: Option<StrongPtr>, _context: &ContextRef) -> Option<String> {
+pub(super) fn open_file_dialog<F>(win: Option<StrongPtr>, _context: &ContextRef, reply: F)
+where
+    F: FnOnce(Option<String>) + 'static,
+{
     let user_dirs = UserDirs::new().unwrap();
 
     autoreleasepool(|| unsafe {
@@ -37,30 +41,30 @@ pub(super) fn open_file_dialog(win: Option<StrongPtr>, _context: &ContextRef) ->
         panel.setDirectoryURL(document_dir);
         let () = msg_send![panel, setAllowedFileTypes: type_names];
 
-        let cb = move |response: NSUInteger| -> Option<String> {
-            if response == 1 {
-                let urls: id = panel.URLs();
-                if NSArray::count(urls) > 0 {
-                    let url = NSArray::objectAtIndex(urls, 0);
-                    let string: id = msg_send![url, absoluteString];
-                    let path = from_nsstring(string);
-                    return Some(path);
+        // We know that the callback will be called only once, but rust doesn't;
+        let reply = RefCell::new(Some(reply));
+
+        let cb = move |response: NSUInteger| {
+            let reply = reply.take();
+            if let Some(reply) = reply {
+                if response == 1 {
+                    let urls: id = panel.URLs();
+                    if NSArray::count(urls) > 0 {
+                        let url = NSArray::objectAtIndex(urls, 0);
+                        let string: id = msg_send![url, absoluteString];
+                        let path = from_nsstring(string);
+                        reply(Some(path));
+                        return;
+                    }
                 }
+                reply(None);
             }
-            None
         };
 
         let handler = ConcreteBlock::new(cb).copy();
         match win {
-            None => {
-                let response = panel.runModal();
-                handler.call((response as u64,))
-            }
-            Some(win) => {
-                let result: Option<String> =
-                    msg_send![panel, beginSheetModalForWindow:win completionHandler:&*handler];
-                result
-            }
+            None => handler.call((panel.runModal() as u64,)),
+            Some(win) => msg_send![panel, beginSheetModalForWindow:win completionHandler:&*handler],
         }
-    })
+    });
 }

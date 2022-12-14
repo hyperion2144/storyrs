@@ -3,8 +3,16 @@
 extern crate objc;
 
 use {
-    crate::{app_delegate::AppDelegate, file_open_dialog::FileOpenDialog, store::KVStore},
-    nativeshell::shell::{exec_bundle, register_observatory_listener, Context, ContextOptions},
+    crate::{
+        app_delegate::AppDelegate,
+        file_open_dialog::{FileOpenDialog, FileOpenDialogChannel},
+        store::{KVStore, KVStoreChannel},
+        window::WindowManagerChannel,
+    },
+    nativeshell::{
+        codec::Value,
+        shell::{exec_bundle, register_observatory_listener, Context, ContextOptions},
+    },
     platform_dirs::AppDirs,
     std::rc::Rc,
 };
@@ -12,6 +20,7 @@ use {
 mod app_delegate;
 mod file_open_dialog;
 mod store;
+mod window;
 
 nativeshell::include_flutter_plugins!();
 
@@ -32,14 +41,25 @@ fn main() {
 
     let store = Rc::new(KVStore::new(app_dirs));
     let file_selector = Rc::new(FileOpenDialog::new(context.weak()));
-    let app_delegate = AppDelegate::new(&context, store.clone(), file_selector.clone());
 
+    // register channels
+    let _kv_store_channel = KVStoreChannel::new(context.weak(), store.clone()).register();
+    let _file_open_dialog = FileOpenDialogChannel::new(file_selector.clone()).register();
+    let _window_manager_channel = WindowManagerChannel::new(context.weak()).register();
+
+    let main_win = context
+        .window_manager
+        .borrow_mut()
+        .create_window(Value::Null, None)
+        .unwrap();
+
+    // add app delegate
+    let app_delegate = AppDelegate::new(&context, main_win, store.clone(), file_selector.clone());
+    app_delegate.init_window(true);
     context
         .application_delegate_manager
         .borrow()
         .set_delegate(app_delegate);
 
-    loop {
-        context.run_loop.borrow().run();
-    }
+    context.run_loop.borrow().run();
 }

@@ -61,10 +61,10 @@ class _VeilState extends State<Veil> {
 }
 
 class _VeilInheritedWidget extends InheritedWidget {
-  _VeilInheritedWidget({
-    required Widget child,
+  const _VeilInheritedWidget({
+    required super.child,
     required this.veilState,
-  }) : super(child: child);
+  });
 
   final _VeilState veilState;
 
