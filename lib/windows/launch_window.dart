@@ -10,7 +10,6 @@ import 'package:nativeshell/nativeshell.dart' as nativeshell_menu_bar;
 import 'package:storyrs/channels.dart';
 import 'package:storyrs/generated/l10n.dart';
 import 'package:storyrs/main.dart';
-import 'package:storyrs/widgets/actions.dart';
 import 'package:storyrs/widgets/menu.dart';
 import 'package:storyrs/widgets/restore_window.dart';
 import 'package:storyrs/windows/editor_window.dart';
@@ -252,79 +251,75 @@ class _LaunchContentViewState extends State<LaunchContentView> {
   Widget build(BuildContext context) {
     S appLocalizations = S.current;
 
-    return Builder(
-      builder: (context) {
-        return MacosScaffold(
-          backgroundColor: MacosColors.white,
-          toolBar: ToolBar(
-            decoration: const BoxDecoration(color: MacosColors.white),
-            height: 240.0,
-            titleWidth: 400.0,
-            centerTitle: true,
-            dividerColor: MacosColors.transparent,
-            onPanStart: (details) {
-              Window.of(context).performDrag();
-            },
-            title: const LogoTitle(),
-          ),
-          children: [
-            ContentArea(
-              builder: (context, scrollController) => Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return MacosScaffold(
+      backgroundColor: MacosColors.white,
+      toolBar: ToolBar(
+        decoration: const BoxDecoration(color: MacosColors.white),
+        height: 240.0,
+        titleWidth: 400.0,
+        centerTitle: true,
+        dividerColor: MacosColors.transparent,
+        onPanStart: (details) {
+          Window.of(context).performDrag();
+        },
+        title: const LogoTitle(),
+      ),
+      children: [
+        ContentArea(
+          builder: (context, scrollController) => Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
                   children: [
-                    Column(
-                      children: [
-                        // TODO: 待添加点击效果
-                        LaunchContentItem(
-                          icon: CupertinoIcons.doc,
-                          title: appLocalizations.createNewProject,
-                          subtitle: appLocalizations.createNewProjectSubTitle,
-                          onClick: () {},
-                        ),
+                    // TODO: 待添加点击效果
+                    LaunchContentItem(
+                      icon: CupertinoIcons.doc,
+                      title: appLocalizations.createNewProject,
+                      subtitle: appLocalizations.createNewProjectSubTitle,
+                      onClick: () {},
+                    ),
 
-                        // LaunchContentItem(
-                        //   icon: CupertinoIcons.question_circle,
-                        //   title: appLocalizations.openGuide,
-                        //   subtitle: appLocalizations.learnFeatures,
-                        //   onClick: () {},
-                        // ),
-                        //
-                        // LaunchContentItem(
-                        //   icon: CupertinoIcons.globe,
-                        //   title: appLocalizations.visitWebsite,
-                        //   subtitle: appLocalizations.sampleFile,
-                        //   onClick: () {},
-                        // ),
-                      ],
-                    ),
-                    const Spacer(),
-                    Container(
-                      width: 260.0,
-                      margin: const EdgeInsets.only(bottom: 10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          MacosCheckbox(
-                            activeColor: MacosColors.appleRed,
-                            value: showLaunch,
-                            onChanged: _saveShowLaunches,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            appLocalizations.showLaunchesWindow,
-                            style: MacosTheme.of(context).typography.callout,
-                          ),
-                        ],
-                      ),
-                    ),
+                    // LaunchContentItem(
+                    //   icon: CupertinoIcons.question_circle,
+                    //   title: appLocalizations.openGuide,
+                    //   subtitle: appLocalizations.learnFeatures,
+                    //   onClick: () {},
+                    // ),
+                    //
+                    // LaunchContentItem(
+                    //   icon: CupertinoIcons.globe,
+                    //   title: appLocalizations.visitWebsite,
+                    //   subtitle: appLocalizations.sampleFile,
+                    //   onClick: () {},
+                    // ),
                   ],
                 ),
-              ),
-            )
-          ],
-        );
-      },
+                const Spacer(),
+                Container(
+                  width: 260.0,
+                  margin: const EdgeInsets.only(bottom: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      MacosCheckbox(
+                        activeColor: MacosColors.appleRed,
+                        value: showLaunch,
+                        onChanged: _saveShowLaunches,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        appLocalizations.showLaunchesWindow,
+                        style: MacosTheme.of(context).typography.callout,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }
@@ -350,7 +345,6 @@ class _LaunchWindowState extends State<LaunchWindow> {
     if (Platform.isMacOS) {
       window.setWindowMenu(Menu(buildMenu(
         S.current,
-        welcome: welcomeAction,
       )));
     }
 

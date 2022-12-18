@@ -5,9 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:nativeshell/nativeshell.dart';
 import 'package:storyrs/generated/l10n.dart';
 import 'package:storyrs/main.dart';
-import 'package:storyrs/widgets/actions.dart';
 import 'package:storyrs/widgets/menu.dart';
 import 'package:storyrs/widgets/restore_window.dart';
+import 'package:storyrs/widgets/system_tray.dart';
 
 class MainWindowState extends WindowState {
   final String windowName = "main_window";
@@ -28,15 +28,15 @@ class MainWindowState extends WindowState {
 
   @override
   Future<void> initializeWindow(Size contentSize) async {
+    final s = await S.delegate.load(Locale(Intl.getCurrentLocale()));
     if (Platform.isMacOS) {
-      final s = await S.delegate.load(Locale(Intl.getCurrentLocale()));
       await Menu(buildMenu(
         s,
-        welcome: welcomeAction,
       )).setAsAppMenu();
     }
+    await initSystemTray(s);
     await WindowConfiguration.restoreWindow(window, windowName, windowInitSize);
-    await window.setStyle(WindowStyle(frame: WindowFrame.regular));
+    await window.setStyle(WindowStyle(frame: WindowFrame.noFrame));
 
     await window.setTitle(windowTitle);
     await window.hide();

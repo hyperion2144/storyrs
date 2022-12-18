@@ -68,7 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "version": MessageLookupByLibrary.simpleMessage("版本号"),
         "view": MessageLookupByLibrary.simpleMessage("视图"),
         "visitWebsite": MessageLookupByLibrary.simpleMessage("访问故事者网站"),
-        "welcome": MessageLookupByLibrary.simpleMessage("欢迎使用 Storyrs"),
+        "welcome": MessageLookupByLibrary.simpleMessage("启动 Storyrs"),
         "welcomeTitle": MessageLookupByLibrary.simpleMessage("欢迎使用故事者"),
         "window": MessageLookupByLibrary.simpleMessage("窗口"),
         "zoom": MessageLookupByLibrary.simpleMessage("缩放")

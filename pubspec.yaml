@@ -45,6 +45,7 @@ dependencies:
   flutter_quill: ^6.1.6
   shared_preferences: ^2.0.15
   flutter_screenutil: ^5.6.0
+  system_tray: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -63,7 +64,11 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - resources/
-
+  fonts:
+    - family: Iconfont
+      fonts:
+        - asset: resources/fonts/iconfont.ttf
+  
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

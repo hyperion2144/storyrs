@@ -39,7 +39,7 @@ class ExamplesWindow extends StatelessWidget {
       theme: MacosThemeData.light(),
       darkTheme: MacosThemeData.dark(),
       themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       home: WindowLayoutProbe(
         child: child,
       ),

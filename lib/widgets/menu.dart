@@ -5,12 +5,13 @@ import 'package:nativeshell/accelerators.dart';
 import 'package:nativeshell/nativeshell.dart';
 import 'package:nativeshell/nativeshell.dart' as nativeshell_menu;
 import 'package:storyrs/generated/l10n.dart';
+import 'package:storyrs/widgets/actions.dart';
 
 // TODO: 为菜单栏项目添加实际点击效果
 // MenuBar items
 MenuBuilder buildMenu(
   S s, {
-  VoidCallback? welcome,
+  VoidCallback? preference,
 }) =>
     () {
       return [
@@ -24,7 +25,7 @@ MenuBuilder buildMenu(
             nativeshell_menu.MenuItem(
               title: s.preference,
               accelerator: cmdOrCtrl + ",",
-              action: () {},
+              action: preference,
             ),
             nativeshell_menu.MenuItem.separator(),
             nativeshell_menu.MenuItem.withRole(
@@ -164,7 +165,7 @@ MenuBuilder buildMenu(
                 nativeshell_menu.MenuItem.separator(),
                 nativeshell_menu.MenuItem(
                   title: s.welcome,
-                  action: welcome,
+                  action: welcomeAction,
                 ),
               ]),
         nativeshell_menu.MenuItem.children(
